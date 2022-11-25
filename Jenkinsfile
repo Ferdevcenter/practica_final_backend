@@ -75,7 +75,8 @@ spec:
       stage("deploy to k8s") {
             steps{
                 sh "git clone https://github.com/Ferdevcenter/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
-                sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yml --kubeconfig=configuracion/kubernetes-config/config"
+//                sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yml --kubeconfig=configuracion/kubernetes-config/config"
+                sh "kubectl apply -f kubernetes-deployment/spring-boot-app/manifest.yml --kubeconfig=configuracion/kubernetes-config/config"
             }
       }
 //      stage ("Run API Test") {
