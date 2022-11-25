@@ -53,7 +53,7 @@ spec:
       stage("build"){
         steps{
           sh "mvn clean package -DskipTests"
-          sh "mvn compile packge"
+          sh "mvn compile package"
         }
       }
 
