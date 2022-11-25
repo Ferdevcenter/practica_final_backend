@@ -46,19 +46,21 @@ spec:
 
       stage("build"){
         steps{
+          sh "java -version"
+          sh "mvn -version"
           sh "mvn clean package -DskipTests"
         }
       }
 
-        stage('Push Image to Docker Hub') {
-          steps {
-            script {
-              dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
-              docker.withRegistry( '', registryCredential) {
-                dockerImage.push()
-              }
-            }
-          }
+//        stage('Push Image to Docker Hub') {
+//          steps {
+//            script {
+//              dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
+//              docker.withRegistry( '', registryCredential) {
+//                dockerImage.push()
+//              }
+//            }
+//          }
         }
 
         stage('Push Image latest to Docker Hub') {
@@ -75,7 +77,7 @@ spec:
       stage("deploy to k8s") {
             steps{
                 sh "git clone https://github.com/Ferdevcenter/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
-                sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yml --kubeconfig=configuracion/kubernetes-config/config"
+//                sh "kubectl apply -f configuracion/kubernetes-deployment/spring-boot-app/manifest.yml --kubeconfig=configuracion/kubernetes-config/config"
             }
       }
 //      stage ("Run API Test") {
