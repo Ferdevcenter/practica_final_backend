@@ -61,7 +61,7 @@ spec:
 //              }
 //            }
 //          }
-        }
+//        }
 
         stage('Push Image latest to Docker Hub') {
           steps {
