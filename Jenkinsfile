@@ -44,11 +44,16 @@ spec:
 
     stages{ 
 
-      stage("build"){
+      stage("mostrar versiones"){
         steps{
           sh "java -version"
           sh "mvn -version"
+        }  
+      }
+      stage("build"){
+        steps{
           sh "mvn clean package -DskipTests"
+          sh "mvn compile packge"
         }
       }
 
