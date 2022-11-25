@@ -50,34 +50,45 @@ spec:
           sh "mvn -version"
         }  
       }
+      stage("Test"){
+        steps{
+          sh "mvn test"
+          jacoco()
+          junit "target/surefire-reports/*.xml"
+        }
+       }
       stage("build"){
         steps{
           sh "mvn clean package -DskipTests"
+        }
+      }
+      stage("compile"){
+        steps{
           sh "mvn compile package"
         }
       }
 
-//        stage('Push Image to Docker Hub') {
-//          steps {
-//            script {
-//              dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
-//              docker.withRegistry( '', registryCredential) {
-//                dockerImage.push()
-//              }
-//            }
-//          }
-//        }
-
-        stage('Push Image latest to Docker Hub') {
-          steps {
-            script {
-              dockerImage = docker.build registryBackend + ":latest"
-              docker.withRegistry( '', registryCredential) {
-                dockerImage.push()
-              }
-            }
+      stage('Push Image to Docker Hub') {
+        steps {
+          script {
+             dockerImage = docker.build registryBackend + ":$BUILD_NUMBER"
+             docker.withRegistry( '', registryCredential) {
+             dockerImage.push()
+             }
           }
         }
+      }
+
+      stage('Push Image latest to Docker Hub') {
+        steps {
+          script {
+             dockerImage = docker.build registryBackend + ":latest"
+             docker.withRegistry( '', registryCredential) {
+             dockerImage.push()
+             }
+          }
+        }
+      }
    
       stage("deploy to k8s") {
             steps{
