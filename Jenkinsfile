@@ -8,7 +8,7 @@ kind: Pod
 spec:
   containers:
   - name: shell
-    image: chikitor/jenkins-nodo-java-bootcamp:1.0
+    image: chikitor/jenkins-nodo-java-bootcamp:2.0
     volumeMounts:
     - mountPath: /var/run/docker.sock
       name: docker-socket-volume
