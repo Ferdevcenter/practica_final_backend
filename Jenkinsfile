@@ -94,7 +94,7 @@ spec:
       //# HACEMOS PRUEBAS CON NEWMAN
       stage ("Run API Test") {
         steps{
-          node("node-nodejs"){
+          //node("node-nodejs"){
            script {
                if(fileExists("spring-boot-app")){
                    sh 'rm -r spring-boot-app'
@@ -104,7 +104,7 @@ spec:
                sh 'newman run spring-boot-app/src/main/resources/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
                junit "newman/report.xml"
             }
-          }
+         // }
         }
       }  
       //# HACEMOS LAS PRUEBAS PARA JMETER
