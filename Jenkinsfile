@@ -27,17 +27,17 @@ spec:
          defaultContainer 'shell'
         }
     }
-  //environment {
-  //      NEXUS_VERSION = "nexus3"
-  //      NEXUS_PROTOCOL = "http"
-  //      NEXUS_URL = "192.168.67.3:8081"
-  //      NEXUS_REPOSITORY = "bootcamp"
-  //      NEXUS_CREDENTIAL_ID = "Ferdevcenter" 
+  environment {
+        NEXUS_VERSION = "nexus3"
+        NEXUS_PROTOCOL = "http"
+        NEXUS_URL = "192.168.67.3:8081"
+        NEXUS_REPOSITORY = "bootcamp"
+        NEXUS_CREDENTIAL_ID = "Ferdevcenter" 
   //      DOCKERHUB_CREDENTIALS=credentials("Ferdevcenterdockerhub")
   //      DOCKER_IMAGE_NAME="chikitor/spring-boot-app" 
   // }
 
-    environment {
+  //  environment {
         registryCredential='chikitor'
         registryBackend = 'chikitor/spring-boot-app'
     }
