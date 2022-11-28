@@ -33,8 +33,8 @@ spec:
         NEXUS_URL = "192.168.67.3:8081"
         NEXUS_REPOSITORY = "bootcamp"
         NEXUS_CREDENTIAL_ID = "Ferdevcenter" 
-  //      DOCKERHUB_CREDENTIALS=credentials("Ferdevcenterdockerhub")
-  //      DOCKER_IMAGE_NAME="chikitor/spring-boot-app" 
+        DOCKERHUB_CREDENTIALS=credentials("chikitor")
+        DOCKER_IMAGE_NAME="chikitor/spring-boot-app" 
   // }
 
   //  environment {
