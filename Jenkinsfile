@@ -152,19 +152,7 @@ spec:
             }
           }
       }    
-      stage ("Generate Taurus Report") {
-        steps{
-          script {
-            dir('jmeter-docker') {
-             sh 'pip install bzt'
-             sh 'export PATH=$PATH:/home/jenkins/.local/bin'
-              BlazeMeterTest: {
-                 sh '/home/jenkins/.local/bin/bzt test/perform_test.jtl -report'
-             }
-            }
-          }
-        }
-      }
+     
       stage("deploy to k8s") {
             steps{
                 sh "git clone https://github.com/Ferdevcenter/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
