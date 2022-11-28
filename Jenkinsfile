@@ -40,7 +40,7 @@ spec:
   //  environment {
         registryCredential='chikitor'
         registryBackend = 'chikitor/spring-boot-app'
-    }
+  }
 
     stages{ 
 
@@ -101,24 +101,24 @@ spec:
 //        }
 //      }
       stage('SonarQube analysis') {
-      steps {
-        withSonarQubeEnv(credentialsId: "sonarqube", installationName: "Sonarqube-server"){
-          sh 'npm run sonar'
+        steps {
+          withSonarQubeEnv(credentialsId: "sonarqube", installationName: "Sonarqube-server"){
+            sh 'npm run sonar'
+          }
         }
       }
-    }
-    stage('Quality Gate') {
-      steps {
-        timeout(time: 10, unit: "MINUTES") {
-          script {
-            def qg = waitForQualityGate()
-            if (qg.status != 'OK') {
-               error "Pipeline aborted due to quality gate failure: ${qg.status}"
+      stage('Quality Gate') {
+        steps {
+          timeout(time: 10, unit: "MINUTES") {
+            script {
+              def qg = waitForQualityGate()
+              if (qg.status != 'OK') {
+                 error "Pipeline aborted due to quality gate failure: ${qg.status}"
+              }
             }
           }
         }
       }
-    }
 
       //# HACEMOS PRUEBAS CON NEWMAN
 //      stage ("Run API Test") {
@@ -165,18 +165,18 @@ spec:
         }
       }
       stage ("Run Jmeter Performance Test") {
-          steps{
-            script {
-              dir('jmeter-docker') {
-               if(fileExists("apache-jmeter-5.5.tgz")){
+        steps{
+          script {
+            dir('jmeter-docker') {
+              if(fileExists("apache-jmeter-5.5.tgz")){
                    sh 'rm -r apache-jmeter-5.5.tgz'
-               }
-               sh './run.sh -n -t test/perform_test.jmx -l test/perform_test.jtl'
-               sh 'docker cp jmeter:/home/jmeter/apache-jmeter-5.5/test/perform_test.jtl /home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test'
-               perfReport '/home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test/perform_test.jtl'
               }
+              sh './run.sh -n -t test/perform_test.jmx -l test/perform_test.jtl'
+              sh 'docker cp jmeter:/home/jmeter/apache-jmeter-5.5/test/perform_test.jtl /home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test'
+              perfReport '/home/jenkins/workspace/_app_perform-test-implementation/jmeter-docker/test/perform_test.jtl'
             }
           }
+        }
       }    
      
       stage("deploy to k8s") {
