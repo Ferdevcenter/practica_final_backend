@@ -91,6 +91,26 @@ spec:
           junit "target/surefire-reports/*.xml"
         }
       }
+      //# HACEMOS PRUEBAS CON NEWMAN
+      stage ("Run API Test") {
+        steps{
+          node("node-nodejs"){
+           script {
+               if(fileExists("spring-boot-app")){
+                   sh 'rm -r spring-boot-app'
+               }
+               sleep 15 // seconds
+               sh 'git clone https://github.com/dberenguerdevcenter/spring-boot-app.git spring-boot-app --branch api-test-implementation'
+               sh 'newman run spring-boot-app/src/main/resources/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
+               junit "newman/report.xml"
+            }
+          }
+        }
+      }  
+
+
+
+
       //# HACEMOS LAS PRUEBAS PARA JMETER
       stage ("Setup Jmeter") {
         steps{
@@ -136,21 +156,20 @@ spec:
               }
             }
           }
-        }    
-        stage ("Generate Taurus Report") {
-          steps{
-            script {
-              dir('jmeter-docker') {
-               sh 'pip install bzt'
-               sh 'export PATH=$PATH:/home/jenkins/.local/bin'
-
-               BlazeMeterTest: {
-                   sh '/home/jenkins/.local/bin/bzt test/perform_test.jtl -report'
-               }
-              }
+      }    
+      stage ("Generate Taurus Report") {
+        steps{
+          script {
+            dir('jmeter-docker') {
+             sh 'pip install bzt'
+             sh 'export PATH=$PATH:/home/jenkins/.local/bin'
+              BlazeMeterTest: {
+                 sh '/home/jenkins/.local/bin/bzt test/perform_test.jtl -report'
+             }
             }
           }
         }
+      }
       stage("deploy to k8s") {
             steps{
                 sh "git clone https://github.com/Ferdevcenter/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
@@ -174,7 +193,7 @@ spec:
 //                }
 //           }
 //      }
-
+//#LAS SIGUIENTES LLAVES SON LAS FINALES NO BORRAR
     }
     
 }
