@@ -92,14 +92,14 @@ spec:
           junit "target/surefire-reports/*.xml"
         }
       }
-      stage('NPM build') {
-        steps {
-          script {
-            sh 'npm install'
-            sh 'npm run build'
-          }
-        }
-      }
+//      stage('NPM build') {
+//        steps {
+//          script {
+//            sh 'npm install'
+//            sh 'npm run build'
+//          }
+//        }
+//      }
       stage('SonarQube analysis') {
       steps {
         withSonarQubeEnv(credentialsId: "sonarqube", installationName: "Sonarqube-server"){

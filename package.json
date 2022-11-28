@@ -1,0 +1,10 @@
+"dependencies": {
+     "sonarqube-scanner": "2.8.2",
+}
+
+"scripts": {
+      "sonar": "sonar-scanner"
+},
+
+
+
