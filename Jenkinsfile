@@ -86,7 +86,8 @@ spec:
       }
       stage("Test"){
         steps{
-          sh "mvn test"
+        //# LO ASTERISCO POR QUE EL TEST SE HACE EN LA COMPILACION
+        //  sh "mvn test"
           jacoco()
           junit "target/surefire-reports/*.xml"
         }
