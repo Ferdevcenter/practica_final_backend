@@ -101,7 +101,7 @@ spec:
                    sh 'rm -r spring-boot-app'
                }
                sleep 15 // seconds
-               sh 'git clone https://github.com/Ferdevcenter/spring-boot-app.git spring-boot-app --branch develop'
+               sh 'git clone https://github.com/Ferdevcenter/practica_final_backend.git spring-boot-app --branch develop'
                sh 'newman run spring-boot-app/src/main/resources/bootcamp.postman_collection.json --reporters cli,junit --reporter-junit-export "newman/report.xml"'
                junit "newman/report.xml"
             }
