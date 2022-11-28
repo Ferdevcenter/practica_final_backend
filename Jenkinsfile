@@ -51,6 +51,14 @@ spec:
         }  
       }
 
+      stage("Test"){
+        steps{
+          sh "mvn test"
+          //jacoco()
+          //junit "target/surefire-reports/*.xml"
+        }
+      }
+
       stage("build"){
         steps{
           sh "mvn clean package -DskipTests"
@@ -85,14 +93,7 @@ spec:
         }
       }
 
-      stage("Test"){
-        steps{
-        //  sh "mvn test"
-          jacoco()
-          junit "target/surefire-reports/*.xml"
-        }
-      }
-   
+     
       stage("deploy to k8s") {
             steps{
                 sh "git clone https://github.com/Ferdevcenter/kubernetes-helm-docker-config.git configuracion --branch test-implementation"
