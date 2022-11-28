@@ -46,8 +46,8 @@ spec:
 
       stage("mostrar versiones"){
         steps{
-          sh "java -version"
-          sh "mvn -version"
+          sh "java --version"
+          sh "mvn --version"
         }  
       }
 
