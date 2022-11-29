@@ -50,7 +50,15 @@ spec:
           sh "mvn --version"
         }  
       }
-
+      stage("Test"){
+        steps{
+        //# LO ASTERISCO POR QUE EL TEST SE HACE EN LA COMPILACION
+          sh "mvn test"
+          jacoco()
+        //# NO SE POR QUE ME FALLA Y LO ASTERISCO  
+          junit "target/surefire-reports/*.xml"
+        }
+      }
       stage("build"){
         steps{
           sh "mvn clean compile package -DskipTests"
@@ -84,15 +92,7 @@ spec:
           }
         }
       }
-      stage("Test"){
-        steps{
-        //# LO ASTERISCO POR QUE EL TEST SE HACE EN LA COMPILACION
-        //  sh "mvn test"
-          jacoco()
-        //# NO SE POR QUE ME FALLA Y LO ASTERISCO  
-        //  junit "target/surefire-reports/*.xml"
-        }
-      }
+      
 //      stage('NPM build') {
 //        steps {
 //          script {
