@@ -52,10 +52,8 @@ spec:
       }
       stage("Test"){
         steps{
-        //# LO ASTERISCO POR QUE EL TEST SE HACE EN LA COMPILACION
           sh "mvn test"
           jacoco()
-        //# NO SE POR QUE ME FALLA Y LO ASTERISCO  
           junit "target/surefire-reports/*.xml"
         }
       }
@@ -108,7 +106,7 @@ spec:
       }
       stage('Quality Gate') {
         steps {
-          timeout(time: 1, unit: "MINUTES") {
+          timeout(time: 10, unit: "MINUTES") {
             script {
               def qg = waitForQualityGate()
               if (qg.status != 'OK') {
