@@ -103,7 +103,7 @@ spec:
       stage('SonarQube analysis') {
         steps {
           withSonarQubeEnv(credentialsId: "sonarqube", installationName: "Sonarqube-server"){
-            sh 'sonar run'
+            sh 'mvn clean package sonar:sonar'
           }
         }
       }
