@@ -57,9 +57,9 @@ spec:
           junit "target/surefire-reports/*.xml"
         }
       }
-      stage("Test"){
+      stage("Jacoco"){
         steps{
-        jacoco()
+         jacoco()
         }
       }
       stage("build"){
